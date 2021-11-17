@@ -1,6 +1,6 @@
-  // Récuperation ID de l'URL
-  let urlObject = new URL(window.location.href);
-  let urlId = urlObject.searchParams.get('id');
+// Récuperation ID de l'URL
+let urlObject = new URL(window.location.href);
+let urlId = urlObject.searchParams.get('id');
 
 /**
  * Récuperation du produit en détails avec la création des elements HTML
@@ -92,11 +92,11 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       let i = cart[index].product.findIndex((e) => e.color === color);
       if(i === -1){
         console.log('la couleur n existe pas, on l ajoute au tableau et on enregistre la quantite.');
-        productOrder.product.push(
-          productOrder.product.color = colorChoice,
-          productOrder.product.quantity = quantityChoice
-        );
-        cart[index].product.push(productOrder.product);
+        cart[index].product.push({
+          color: colorChoice,
+          quantity: quantityChoice
+        });
+        // cart[index].product.push(productOrder.product);
         // cart.push(productOrder);
       }else{
         console.log('la couleur existe, on additionne la quantite.');

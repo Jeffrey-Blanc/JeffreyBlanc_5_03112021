@@ -2,6 +2,10 @@
 let urlObject = new URL(window.location.href);
 let urlId = urlObject.searchParams.get('id');
 
+let cart = [];
+let colorChoice = '';
+let quantityChoice = 0;
+
 /**
  * Récuperation du produit en détails avec la création des elements HTML
  */
@@ -47,12 +51,7 @@ function createProductDescription(product) {
 }
 
 getProduct();
-
-let cart = [];
-
-let colorChoice = '';
-let quantityChoice = 0;
-
+storageAlreadyExist();
 
 let colorSelect = document.getElementById('colors');
 colorSelect.addEventListener('change', ()=>{
@@ -112,12 +111,24 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
   }
 });
 
-function saveToStorage(){
+function storageAlreadyExist(){
   if(!localStorage.getItem('panier')){
-    console.log('le storage n existe pas, on enregistre les donnees dans le storage.');
-    localStorage.setItem('panier', JSON.stringify(cart));
-  }else {
-    console.log('Le storage existe, on ajoute/modifie les donnees');
-    localStorage.setItem('panier', JSON.stringify(cart));
+    console.log('Le storage n existe pas, on enregistre les donnes dans le storage.');
+    return;
+  } else {
+    return extractStorages();
   }
+}
+
+function extractStorages() {
+  let storage = localStorage.getItem('panier');
+  let panier = JSON.parse(storage);
+  // console.log(cart);
+  // console.log(panier);
+  return cart = panier;
+}
+
+function saveToStorage(){
+  console.log('Le storage existe, on ajoute/modifie les donnees');
+  localStorage.setItem('panier', JSON.stringify(cart));
 }

@@ -37,6 +37,15 @@ async function getProduct() {
  * @param{object} product 
  */
 function createProductDescription(product) {
+  productOrder = {
+    id: product._id,
+    name: product.name,
+    price: product.price,
+    imageUrl: product.imageUrl,
+    description: product.description,
+    altTxt: product.altTxt,
+    product: []
+  }
   // Récuperation des elements HTML
   let productImg = document.getElementsByClassName('item__img');
   let productTitle = document.getElementById('title');
@@ -78,10 +87,9 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
   if (colorChoice == ''){
     return console.log('Choissisez une couleur SVP');
   }else{
-    // Verifie si l'ID n'existe pas dans un tableau. l'ajouter dans le panier.
+    // Verifie si l'ID n'existe pas dans un tableau cart, l'ajouter dans le tableau concernée et enregistre sur localStorage.
     let index = cart.findIndex((productOrder) => urlId === productOrder.id);
     if(index === -1){
-      console.log('Produit id inexistant, on ajoute le produit d une couleur choisie avec sa quantite au tableau');
       productOrder.product.push({
         color: colorChoice,
         quantity: quantityChoice
@@ -89,20 +97,16 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       cart.push(productOrder);
       saveToStorage();
     }else{
-      console.log('Produit id existant, on procede une verification supplementaire si la couleur existe deja.');
       let color = colorChoice;
       let i = cart[index].product.findIndex((e) => e.color === color);
+      // Verifie si la couleur est n'existe pas dans un tableau, l'ajouter dans le tableau product et enregistre sur localStorage.
       if(i === -1){
-        console.log('la couleur n existe pas, on l ajoute au tableau et on enregistre la quantite.');
         cart[index].product.push({
           color: colorChoice,
           quantity: quantityChoice
         });
         saveToStorage();
-        // cart[index].product.push(productOrder.product);
-        // cart.push(productOrder);
       }else{
-        console.log('la couleur existe, on additionne la quantite.');
         cart[index].product[i] = {
           ...cart[index].product[i],
           quantity: cart[index].product[i].quantity += quantityChoice
@@ -114,7 +118,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
 });
 
 /***
- * Si local Storage existe, extraire les données
+ * Extrait les données localStorage s'il existe.
  */
 function storageAlreadyExist(){
   if(localStorage.getItem('panier')){
@@ -123,7 +127,7 @@ function storageAlreadyExist(){
 }
 
 /***
- * Extractions des données localStorage
+ * Extrait des données localStorage
  */
 function extractStorages() {
   let storage = localStorage.getItem('panier');
@@ -131,6 +135,9 @@ function extractStorages() {
   return cart = panier;
 }
 
+/***
+ * Enregistre les données de l'objet cart dans localStorage.
+ */
 function saveToStorage(){
   console.log('Le storage existe, on ajoute/modifie les donnees');
   localStorage.setItem('panier', JSON.stringify(cart));

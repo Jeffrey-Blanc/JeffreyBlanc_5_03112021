@@ -86,6 +86,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
         quantity: quantityChoice
       });
       cart.push(productOrder);
+      saveToStorage();
     }else{
       console.log('Produit id existant, on procede une verification supplementaire si la couleur existe deja.');
       let color = colorChoice;
@@ -96,6 +97,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
           color: colorChoice,
           quantity: quantityChoice
         });
+        saveToStorage();
         // cart[index].product.push(productOrder.product);
         // cart.push(productOrder);
       }else{
@@ -104,7 +106,18 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
           ...cart[index].product[i],
           quantity: cart[index].product[i].quantity += quantityChoice
         }
+        saveToStorage();
       }
     }
   }
 });
+
+function saveToStorage(){
+  if(!localStorage.getItem('panier')){
+    console.log('le storage n existe pas, on enregistre les donnees dans le storage.');
+    localStorage.setItem('panier', JSON.stringify(cart));
+  }else {
+    console.log('Le storage existe, on ajoute/modifie les donnees');
+    localStorage.setItem('panier', JSON.stringify(cart));
+  }
+}

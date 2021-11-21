@@ -7,8 +7,6 @@ let colorChoice = '';
 let quantityChoice = 0;
 
 let productOrder = {
-  id: urlId,
-  product: []
 };
 
 

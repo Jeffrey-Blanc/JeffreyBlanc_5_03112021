@@ -82,10 +82,10 @@ quantitySelect.addEventListener('change', ()=>{
 let addToCart = document.getElementById('addToCart').addEventListener('click', () => {
   // Verifie le formatage de l'ajout au panier
   if(quantityChoice < 1 || quantityChoice > 100){
-    return console.log('erreur : le chiffre 1 ne doit pas etre inferieur a 0 et ne doit pas etre superieur a 100.');
+    return;
   } 
   if (colorChoice == ''){
-    return console.log('Choissisez une couleur SVP');
+    return;
   }else{
     // Verifie si l'ID n'existe pas dans un tableau cart, l'ajouter dans le tableau concernée et enregistre sur localStorage.
     let index = cart.findIndex((productOrder) => urlId === productOrder.id);
@@ -139,6 +139,5 @@ function extractStorages() {
  * Enregistre les données de l'objet cart dans localStorage.
  */
 function saveToStorage(){
-  console.log('Le storage existe, on ajoute/modifie les donnees');
   localStorage.setItem('panier', JSON.stringify(cart));
 }

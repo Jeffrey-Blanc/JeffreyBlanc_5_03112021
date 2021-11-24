@@ -1,6 +1,9 @@
 let totalQuantityProduct = 0;
 let totalPriceProduct = 0;
 
+/***
+ * Affiche les produits commandées
+ */
 function displayProductOrder(){
   let itemProduct = document.getElementById('cart__items');
 
@@ -13,10 +16,19 @@ function displayProductOrder(){
   });
 }
 
+/***
+ * Calcul le total des prix des commandes.
+ * @param{obj}, {obj}. quantite produit commandés, produit prix.
+ * @return
+ */
 function calculateTotalPrice(quantite, price){
   return totalPriceProduct += quantite * price;
 }
 
+/***
+ * Generation des éléments HTML des produits commandées
+ * @param{obj}, {obj}. produit commandé, produit de choix couleur et sa quantité.
+ */
 function generateProductOrder(productOrder, productOrderChoiceColorOfQuantity){
   return (
     `

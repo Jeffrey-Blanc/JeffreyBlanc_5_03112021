@@ -35,6 +35,7 @@ async function getProduct() {
  * @param{object} product 
  */
 function createProductDescription(product) {
+  // Enregistre les données en objet.
   productOrder = {
     id: product._id,
     name: product.name,

@@ -4,15 +4,15 @@ let totalPriceProduct = 0;
 /***
  * Affiche les produits commandées
  */
-function displayProductOrder(){
+function displayProductOrder() {
   let itemProduct = document.getElementById('cart__items');
 
   cart.map(productOrder => {
-   productOrder.product.map(productOrderChoiceColorOfQuantity =>{
-    itemProduct.innerHTML += generateProductOrder(productOrder, productOrderChoiceColorOfQuantity);
-    totalQuantityProduct++;
-    calculateTotalPrice(productOrderChoiceColorOfQuantity.quantity, productOrder.price);
-   });
+    productOrder.product.map(productOrderChoiceColorOfQuantity => {
+      itemProduct.innerHTML += generateProductOrder(productOrder, productOrderChoiceColorOfQuantity);
+      totalQuantityProduct++;
+      calculateTotalPrice(productOrderChoiceColorOfQuantity.quantity, productOrder.price);
+    });
   });
 }
 
@@ -21,7 +21,7 @@ function displayProductOrder(){
  * @param{obj}, {obj}. quantite produit commandés, produit prix.
  * @return
  */
-function calculateTotalPrice(quantite, price){
+function calculateTotalPrice(quantite, price) {
   return totalPriceProduct += quantite * price;
 }
 
@@ -29,7 +29,7 @@ function calculateTotalPrice(quantite, price){
  * Generation des éléments HTML des produits commandées
  * @param{obj}, {obj}. produit commandé, produit de choix couleur et sa quantité.
  */
-function generateProductOrder(productOrder, productOrderChoiceColorOfQuantity){
+function generateProductOrder(productOrder, productOrderChoiceColorOfQuantity) {
   return (
     `
     <article class="cart__item" data-id="${productOrder.id}">

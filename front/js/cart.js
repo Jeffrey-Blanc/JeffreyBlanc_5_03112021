@@ -1,4 +1,5 @@
 let totalQuantityProduct = 0;
+let totalPriceProduct = 0;
 
 function displayProductOrder(){
   let itemProduct = document.getElementById('cart__items');
@@ -6,11 +7,14 @@ function displayProductOrder(){
   cart.map(productOrder => {
    productOrder.product.map(productOrderChoiceColorOfQuantity =>{
     itemProduct.innerHTML += generateProductOrder(productOrder, productOrderChoiceColorOfQuantity);
-    //console.log(productOrderChoiceColorOfQuantity.quantity);
-    //console.log(productOrder.price);
     totalQuantityProduct++;
+    calculateTotalPrice(productOrderChoiceColorOfQuantity.quantity, productOrder.price);
    });
   });
+}
+
+function calculateTotalPrice(quantite, price){
+  return totalPriceProduct += quantite * price;
 }
 
 function generateProductOrder(productOrder, productOrderChoiceColorOfQuantity){
@@ -45,3 +49,6 @@ displayProductOrder();
 
 let totalQuantity = document.getElementById('totalQuantity');
 totalQuantity.textContent = totalQuantityProduct;
+
+let totalPrice = document.getElementById('totalPrice');
+totalPrice.textContent = totalPriceProduct;

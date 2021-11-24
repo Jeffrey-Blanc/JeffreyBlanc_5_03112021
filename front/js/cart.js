@@ -1,9 +1,14 @@
+let totalQuantityProduct = 0;
+
 function displayProductOrder(){
   let itemProduct = document.getElementById('cart__items');
 
   cart.map(productOrder => {
    productOrder.product.map(productOrderChoiceColorOfQuantity =>{
     itemProduct.innerHTML += generateProductOrder(productOrder, productOrderChoiceColorOfQuantity);
+    //console.log(productOrderChoiceColorOfQuantity.quantity);
+    //console.log(productOrder.price);
+    totalQuantityProduct++;
    });
   });
 }
@@ -37,3 +42,6 @@ function generateProductOrder(productOrder, productOrderChoiceColorOfQuantity){
 
 storageAlreadyExist();
 displayProductOrder();
+
+let totalQuantity = document.getElementById('totalQuantity');
+totalQuantity.textContent = totalQuantityProduct;

@@ -64,3 +64,30 @@ totalQuantity.textContent = totalQuantityProduct;
 
 let totalPrice = document.getElementById('totalPrice');
 totalPrice.textContent = totalPriceProduct;
+
+
+
+buttonDelete = document.getElementsByClassName('deleteItem');
+
+for (button of buttonDelete){
+  button.addEventListener("click", function (e) {
+    let t1 = e.target.closest("article");
+    let titleAndColor = t1.children[1].children[0].children[0].textContent;
+    let splitWords = titleAndColor.split(' ');
+    let color = splitWords[splitWords.length -1];
+    //console.log(t1);
+    //console.log(t1.dataset.id);
+    //console.log(color);
+    //console.log(cart);
+    let index = cart.findIndex((element) => t1.dataset.id === element.id);
+    //console.log(cart[index]);
+
+    let i = cart[index].product.findIndex((element) => color === element.color);
+    //console.log(cart[index].product[i]);
+    //console.log(i);
+
+    cart[index].product.splice(i, 1);
+    saveToStorage();
+    displayProductOrder();
+  });
+}

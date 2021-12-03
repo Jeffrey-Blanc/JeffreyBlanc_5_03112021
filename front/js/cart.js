@@ -75,19 +75,12 @@ for (button of buttonDelete){
     let titleAndColor = t1.children[1].children[0].children[0].textContent;
     let splitWords = titleAndColor.split(' ');
     let color = splitWords[splitWords.length -1];
-    //console.log(t1);
-    //console.log(t1.dataset.id);
-    //console.log(color);
-    //console.log(cart);
-    let index = cart.findIndex((element) => t1.dataset.id === element.id);
-    //console.log(cart[index]);
 
+    let index = cart.findIndex((element) => t1.dataset.id === element.id);
     let i = cart[index].product.findIndex((element) => color === element.color);
-    //console.log(cart[index].product[i]);
-    //console.log(i);
 
     cart[index].product.splice(i, 1);
     saveToStorage();
-    displayProductOrder();
+    window.location.reload();
   });
 }

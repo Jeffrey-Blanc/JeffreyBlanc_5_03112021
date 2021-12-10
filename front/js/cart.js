@@ -71,15 +71,9 @@ buttonDelete = document.getElementsByClassName('deleteItem');
 
 for (button of buttonDelete) {
   button.addEventListener("click", function (e) {
-    let t1 = e.target.closest("article");
-    let titleAndColor = t1.children[1].children[0].children[0].textContent;
-    let splitWords = titleAndColor.split(' ');
-    let color = splitWords[splitWords.length - 1];
-
-    let index = cart.findIndex((element) => t1.dataset.id === element.id);
-    let i = cart[index].product.findIndex((element) => color === element.color);
-
-    cart[index].product.splice(i, 1);
+    // let idProduct = findIdProduct(e);
+    // let color = findColor(e);
+    deleteArticle(findIdProduct(e), findColor(e))
     saveToStorage();
     window.location.reload();
   });
@@ -89,9 +83,11 @@ buttonModifyQuantity = document.getElementsByClassName('itemQuantity');
 
 for (button of buttonModifyQuantity) {
   button.addEventListener("change", function (e) {
-    let t2 = e.target.closest('div');
-    let t3 = t2.children[0];
-    t3.innerHTML = regenerateQuantity(e.target.value);
+    let elementSettingsQuantity = e.target.closest('div');
+    let elementQuantity = elementSettingsQuantity.children[0];
+    elementQuantity.innerHTML = regenerateQuantity(e.target.value);
+    modifyQuantity(findIdProduct(e), findColor(e), e.target.value);
+    saveToStorage();
   });
 }
 
@@ -101,4 +97,36 @@ function regenerateQuantity(quantity) {
     <p>Qté : ${quantity} </p>
     `
     );
+}
+
+function findColor (element){
+  let elementArticle = element.target.closest("article");
+  let titleAndColor = elementArticle.children[1].children[0].children[0].textContent;
+  let splitWords = titleAndColor.split(' ');
+  let color = splitWords[splitWords.length - 1];
+  return color;
+}
+
+function findIdProduct(element){
+  let elementId = element.target.closest("article").dataset.id;
+  return elementId;
+}
+
+function deleteArticle(idProduct, color){
+  let index = cart.findIndex((element) => idProduct === element.id);
+  let i = cart[index].product.findIndex((element) => color === element.color);
+
+  cart[index].product.splice(i, 1);
+}
+
+function modifyQuantity(idProduct, color, quantity){
+  let index = cart.findIndex((element) => idProduct === element.id);
+  let i = cart[index].product.findIndex((element) => color === element.color);
+
+  console.log(cart[index].product[i]);
+
+  cart[index].product[i] = {
+    ...cart[index].product[i],
+    quantity: cart[index].product[i].quantity = quantity
+  }
 }

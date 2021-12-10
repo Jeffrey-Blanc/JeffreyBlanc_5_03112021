@@ -84,8 +84,9 @@ for (button of buttonModifyQuantity) {
     let elementSettingsQuantity = e.target.closest('div');
     let elementQuantity = elementSettingsQuantity.children[0];
     elementQuantity.innerHTML = regenerateQuantity(e.target.value);
-    modifyQuantity(findIdProduct(e), findColor(e), e.target.value);
+    modifyQuantity(findIdProduct(e), findColor(e), parseInt(e.target.value));
     saveToStorage();
+    recalculateTotalPrice();
   });
 }
 
@@ -121,10 +122,21 @@ function modifyQuantity(idProduct, color, quantity){
   let index = cart.findIndex((element) => idProduct === element.id);
   let i = cart[index].product.findIndex((element) => color === element.color);
 
-  console.log(cart[index].product[i]);
-
   cart[index].product[i] = {
     ...cart[index].product[i],
     quantity: cart[index].product[i].quantity = quantity
   }
+}
+
+function recalculateTotalPrice(){
+  totalQuantityProduct = 0;
+  totalPriceProduct = 0;
+
+  cart.map(productOrder => {
+    productOrder.product.map(productOrderChoiceColorOfQuantity => {
+      calculateTotalPrice(productOrderChoiceColorOfQuantity.quantity, productOrder.price);
+    });
+  });
+  totalQuantity.textContent = totalQuantityProduct;
+  totalPrice.textContent = totalPriceProduct;
 }

@@ -71,9 +71,14 @@ buttonDelete = document.getElementsByClassName('deleteItem');
 
 for (button of buttonDelete) {
   button.addEventListener("click", function (e) {
+    let sectionCartItems = document.getElementById('cart__items');
+    let elementArticle = e.target.closest("article");
+
     deleteArticle(findIdProduct(e), findColor(e))
     saveToStorage();
-    window.location.reload();
+    recalculateTotalPrice();
+    
+    sectionCartItems.removeChild(elementArticle);
   });
 }
 

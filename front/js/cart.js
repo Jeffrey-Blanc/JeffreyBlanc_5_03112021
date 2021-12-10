@@ -71,8 +71,6 @@ buttonDelete = document.getElementsByClassName('deleteItem');
 
 for (button of buttonDelete) {
   button.addEventListener("click", function (e) {
-    // let idProduct = findIdProduct(e);
-    // let color = findColor(e);
     deleteArticle(findIdProduct(e), findColor(e))
     saveToStorage();
     window.location.reload();

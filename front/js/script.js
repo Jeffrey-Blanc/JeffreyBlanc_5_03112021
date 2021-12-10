@@ -95,6 +95,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       });
       cart.push(productOrder);
       saveToStorage();
+      reset();
     }else{
       let color = colorChoice;
       let i = cart[index].product.findIndex((e) => e.color === color);
@@ -105,14 +106,20 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
           quantity: quantityChoice
         });
         saveToStorage();
+        reset();
       }else{
         cart[index].product[i] = {
           ...cart[index].product[i],
           quantity: cart[index].product[i].quantity += quantityChoice
         }
         saveToStorage();
+        reset();
       }
     }
   }
 });
 
+function reset() {
+  colorSelect.textContent = `--SVP, choisissez une couleur --`;
+  quantitySelect.value = 0;
+}

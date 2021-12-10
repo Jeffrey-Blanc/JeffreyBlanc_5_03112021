@@ -10,7 +10,7 @@ function displayProductOrder() {
   cart.map(productOrder => {
     productOrder.product.map(productOrderChoiceColorOfQuantity => {
       itemProduct.innerHTML += generateProductOrder(productOrder, productOrderChoiceColorOfQuantity);
-      totalQuantityProduct++;
+      //totalQuantityProduct++;
       calculateTotalPrice(productOrderChoiceColorOfQuantity.quantity, productOrder.price);
     });
   });
@@ -19,10 +19,10 @@ function displayProductOrder() {
 /***
  * Calcul le total des prix des commandes.
  * @param{obj}, {obj}. quantite produit commandés, produit prix.
- * @return
  */
 function calculateTotalPrice(quantite, price) {
-  return totalPriceProduct += quantite * price;
+  totalQuantityProduct += quantite;
+  totalPriceProduct += quantite * price;
 }
 
 /***
@@ -69,12 +69,12 @@ totalPrice.textContent = totalPriceProduct;
 
 buttonDelete = document.getElementsByClassName('deleteItem');
 
-for (button of buttonDelete){
+for (button of buttonDelete) {
   button.addEventListener("click", function (e) {
     let t1 = e.target.closest("article");
     let titleAndColor = t1.children[1].children[0].children[0].textContent;
     let splitWords = titleAndColor.split(' ');
-    let color = splitWords[splitWords.length -1];
+    let color = splitWords[splitWords.length - 1];
 
     let index = cart.findIndex((element) => t1.dataset.id === element.id);
     let i = cart[index].product.findIndex((element) => color === element.color);
@@ -83,4 +83,22 @@ for (button of buttonDelete){
     saveToStorage();
     window.location.reload();
   });
+}
+
+buttonModifyQuantity = document.getElementsByClassName('itemQuantity');
+
+for (button of buttonModifyQuantity) {
+  button.addEventListener("change", function (e) {
+    let t2 = e.target.closest('div');
+    let t3 = t2.children[0];
+    t3.innerHTML = regenerateQuantity(e.target.value);
+  });
+}
+
+function regenerateQuantity(quantity) {
+  return (
+    `
+    <p>Qté : ${quantity} </p>
+    `
+    );
 }

@@ -77,7 +77,7 @@ for (button of buttonDelete) {
     deleteArticle(findIdProduct(e), findColor(e))
     saveToStorage();
     recalculateTotalPrice();
-    
+
     sectionCartItems.removeChild(elementArticle);
   });
 }
@@ -100,10 +100,10 @@ function regenerateQuantity(quantity) {
     `
     <p>Qté : ${quantity} </p>
     `
-    );
+  );
 }
 
-function findColor (element){
+function findColor(element) {
   let elementArticle = element.target.closest("article");
   let titleAndColor = elementArticle.children[1].children[0].children[0].textContent;
   let splitWords = titleAndColor.split(' ');
@@ -111,19 +111,19 @@ function findColor (element){
   return color;
 }
 
-function findIdProduct(element){
+function findIdProduct(element) {
   let elementId = element.target.closest("article").dataset.id;
   return elementId;
 }
 
-function deleteArticle(idProduct, color){
+function deleteArticle(idProduct, color) {
   let index = cart.findIndex((element) => idProduct === element.id);
   let i = cart[index].product.findIndex((element) => color === element.color);
 
   cart[index].product.splice(i, 1);
 }
 
-function modifyQuantity(idProduct, color, quantity){
+function modifyQuantity(idProduct, color, quantity) {
   let index = cart.findIndex((element) => idProduct === element.id);
   let i = cart[index].product.findIndex((element) => color === element.color);
 
@@ -133,7 +133,7 @@ function modifyQuantity(idProduct, color, quantity){
   }
 }
 
-function recalculateTotalPrice(){
+function recalculateTotalPrice() {
   totalQuantityProduct = 0;
   totalPriceProduct = 0;
 

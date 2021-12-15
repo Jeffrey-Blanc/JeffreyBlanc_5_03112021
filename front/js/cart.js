@@ -145,3 +145,79 @@ function recalculateTotalPrice() {
   totalQuantity.textContent = totalQuantityProduct;
   totalPrice.textContent = totalPriceProduct;
 }
+
+// Bouton commande : Vérification des formatages formulaires avant l'envoie.
+document.getElementById('order').addEventListener('click', () => {
+  // Récupération valeur des inputs.
+  let firstName = document.getElementById('firstName').value;
+  let lastName = document.getElementById('lastName').value;
+  let address = document.getElementById('address').value;
+  let city = document.getElementById('city').value;
+  let email = document.getElementById('email').value;
+
+  // Récupération des elements messages erreurs
+  let firstNameError = document.getElementById('firstNameErrorMsg');
+  let lastNameError = document.getElementById('lastNameErrorMsg');
+  let addressError = document.getElementById('addressErrorMsg');
+  let cityError = document.getElementById('cityErrorMsg');
+  let emailError = document.getElementById('emailErrorMsg');
+
+  // Boolean pour la validation des donnees avant l'envoi POST.
+  let firstNameBoolean = false;
+  let lastNameBoolean = false;
+  let addressBoolean = false;
+  let cityBoolean = false;
+  let emailBoolean = false;
+
+
+  // Regex
+  let firstNameRegex = new RegExp('^[a-zA-Z\-\' ]+$');
+  let lastNameRegex = new RegExp('^[a-zA-Z\-\' ]+$');
+  // let addressRegex = new RegExp('[0-9]{1,3}+ [a-zA-Z]');
+  let cityRegex = new RegExp('^[a-zA-Z\-\' ]+$');
+  let emailRegex = new RegExp ('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
+  // Formatage des formulaires
+  if(firstNameRegex.test(firstName)){
+    firstNameBoolean = true;
+    firstNameError.innerText = ' ';
+  } else {
+    firstNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
+    firstNameBoolean = false;
+  }
+  if(lastNameRegex.test(lastName)){
+    firstNameBoolean = true;
+    lastNameError.innerText = ' ';
+  } else {
+    lastNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
+    lastNameBoolean = false;
+  }
+  // if (addressRegex.test(address)) {
+  //   addressBoolean = true;
+  //   addressError.innerText = ' ';
+  // } else {
+  //   addressError.innerText = '';
+  //   addressBoolean = false;
+  // }
+  if(cityRegex.test(city)){
+    cityBoolean = true;
+    cityError.innerText = ' ';
+  } else {
+    cityError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
+    cityBoolean = false;
+  }
+  if(emailRegex.test(email)){
+    emailBoolean = true;
+    emailError.innerText = ' ';
+  } else {
+    emailError.innerText = 'Ne peut pas être vide et le format d\'un mail doit être : exemple@kanap.com';
+    emailBoolean = false;
+  }
+
+  // Vérification validation formatage des formulaire pour l'envoi POST
+  if(firstNameBoolean && lastNameBoolean && cityBoolean &&emailRegex){
+    console.log('tout est OK');
+  } else {
+    console.log('WARNING DON\'T SEND !');
+  }
+});

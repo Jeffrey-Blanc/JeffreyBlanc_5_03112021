@@ -147,7 +147,9 @@ function recalculateTotalPrice() {
 }
 
 // Bouton commande : Vérification des formatages formulaires avant l'envoie.
-document.getElementById('order').addEventListener('click', () => {
+document.getElementById('order').addEventListener('click', (e) => {
+  // e.preventDefault();
+
   // Récupération valeur des inputs.
   let firstName = document.getElementById('firstName').value;
   let lastName = document.getElementById('lastName').value;
@@ -182,40 +184,40 @@ document.getElementById('order').addEventListener('click', () => {
     firstNameBoolean = true;
     firstNameError.innerText = ' ';
   } else {
-    firstNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
     firstNameBoolean = false;
+    firstNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
   }
   if(lastNameRegex.test(lastName)){
     firstNameBoolean = true;
     lastNameError.innerText = ' ';
   } else {
-    lastNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
     lastNameBoolean = false;
+    lastNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
   }
-  // if (addressRegex.test(address)) {
+  // if (address.value === undefined) {
+  //   addressBoolean = false;
+  //   addressError.innerText = 'Ne peut pas être vide';
+  // } else {
   //   addressBoolean = true;
   //   addressError.innerText = ' ';
-  // } else {
-  //   addressError.innerText = '';
-  //   addressBoolean = false;
   // }
   if(cityRegex.test(city)){
     cityBoolean = true;
     cityError.innerText = ' ';
   } else {
-    cityError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
     cityBoolean = false;
+    cityError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
   }
   if(emailRegex.test(email)){
     emailBoolean = true;
     emailError.innerText = ' ';
   } else {
-    emailError.innerText = 'Ne peut pas être vide et le format d\'un mail doit être : exemple@kanap.com';
     emailBoolean = false;
+    emailError.innerText = 'Ne peut pas être vide et le format d\'un mail doit être : exemple@kanap.com';
   }
 
   // Vérification validation formatage des formulaire pour l'envoi POST
-  if(firstNameBoolean && lastNameBoolean && cityBoolean &&emailRegex){
+  if(firstNameBoolean && lastNameBoolean && cityBoolean && emailRegex){
     console.log('tout est OK');
   } else {
     console.log('WARNING DON\'T SEND !');

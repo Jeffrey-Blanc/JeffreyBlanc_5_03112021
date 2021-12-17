@@ -146,80 +146,51 @@ function recalculateTotalPrice() {
   totalPrice.textContent = totalPriceProduct;
 }
 
+function testRegex(regex, value, errorHTML, message) {
+  if(value === 'undefined'){
+    errorHTML.innerText = message;
+    return false;
+  }
+  if (regex.test(value)) {
+    errorHTML.innerText = ' ';
+    return true;
+  } else {
+    errorHTML.innerText = message;
+    return false;
+  }
+}
+  
 // Bouton commande : Vérification des formatages formulaires avant l'envoie.
 document.getElementById('order').addEventListener('click', (e) => {
-  // e.preventDefault();
+  e.preventDefault();
 
-  // Récupération valeur des inputs.
-  let firstName = document.getElementById('firstName').value;
-  let lastName = document.getElementById('lastName').value;
-  let address = document.getElementById('address').value;
-  let city = document.getElementById('city').value;
-  let email = document.getElementById('email').value;
+  let regexSimple = new RegExp('^[a-zA-Z\-\' ]+$');
+  let regexAddress = new RegExp('^[0-9a-zA-Z\-\' ]+$');
+  let regexEmail = new RegExp ('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 
-  // Récupération des elements messages erreurs
-  let firstNameError = document.getElementById('firstNameErrorMsg');
-  let lastNameError = document.getElementById('lastNameErrorMsg');
-  let addressError = document.getElementById('addressErrorMsg');
-  let cityError = document.getElementById('cityErrorMsg');
-  let emailError = document.getElementById('emailErrorMsg');
+  let elementsHTML = [
+    {
+      id: "firstName", regex: regexSimple, messagError: 'Ne peut pas être vide et ne peut pas contenir des chiffres', isValid: false
+    },
+    {
+      id: "lastName", regex: regexSimple, messagError: 'Ne peut pas être vide et ne peut pas contenir des chiffres', isValid: false
+    },
+    {
+      id: "address", regex: regexAddress, messagError: 'Ne peut pas être vide.', isValid: false
+    },
+    {
+      id: "city", regex: regexSimple, messagError: 'Ne peut pas être vide et ne peut pas contenir des chiffres', isValid: false
+    },
+    {
+      id: "email", regex: regexEmail, messagError: 'Ne peut pas être vide et le format d\'un mail doit être : exemple@kanap.com', isValid: false
+    }
+  ];
 
-  // Boolean pour la validation des donnees avant l'envoi POST.
-  let firstNameBoolean = false;
-  let lastNameBoolean = false;
-  let addressBoolean = false;
-  let cityBoolean = false;
-  let emailBoolean = false;
+  elementsHTML.map((fields) => {
+    let elementHTML = document.getElementById(fields.id);
+    let errorHTML = document.getElementById(fields.id + 'ErrorMsg');
+    let isValid = testRegex(fields.regex, elementHTML.value, errorHTML, fields.messagError);
 
-
-  // Regex
-  let firstNameRegex = new RegExp('^[a-zA-Z\-\' ]+$');
-  let lastNameRegex = new RegExp('^[a-zA-Z\-\' ]+$');
-  // let addressRegex = new RegExp('[0-9]{1,3}+ [a-zA-Z]');
-  let cityRegex = new RegExp('^[a-zA-Z\-\' ]+$');
-  let emailRegex = new RegExp ('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-
-  // Formatage des formulaires
-  if(firstNameRegex.test(firstName)){
-    firstNameBoolean = true;
-    firstNameError.innerText = ' ';
-  } else {
-    firstNameBoolean = false;
-    firstNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
-  }
-  if(lastNameRegex.test(lastName)){
-    firstNameBoolean = true;
-    lastNameError.innerText = ' ';
-  } else {
-    lastNameBoolean = false;
-    lastNameError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
-  }
-  // if (address.value === undefined) {
-  //   addressBoolean = false;
-  //   addressError.innerText = 'Ne peut pas être vide';
-  // } else {
-  //   addressBoolean = true;
-  //   addressError.innerText = ' ';
-  // }
-  if(cityRegex.test(city)){
-    cityBoolean = true;
-    cityError.innerText = ' ';
-  } else {
-    cityBoolean = false;
-    cityError.innerText = 'Ne peut pas être vide et ne peut pas contenir des chiffres.';
-  }
-  if(emailRegex.test(email)){
-    emailBoolean = true;
-    emailError.innerText = ' ';
-  } else {
-    emailBoolean = false;
-    emailError.innerText = 'Ne peut pas être vide et le format d\'un mail doit être : exemple@kanap.com';
-  }
-
-  // Vérification validation formatage des formulaire pour l'envoi POST
-  if(firstNameBoolean && lastNameBoolean && cityBoolean && emailRegex){
-    console.log('tout est OK');
-  } else {
-    console.log('WARNING DON\'T SEND !');
-  }
+    fields.isValid = isValid;
+  });
 });

@@ -256,16 +256,9 @@ async function sendOrder(data){
     },
     body: JSON.stringify(data),
   })
-  if(reponse.ok){
-    confirmer(reponse);
-  }
-
-  function confirmer(data){
+  .then((reponse) => reponse.json())
+  .then(function (data){
+    console.log(data);
     window.location.href = "./confirmation.html?id=" + data.orderId;
-  }
-  // .then((reponse) => reponse.json())
-  // .then(function (data){
-  //   console.log(data);
-  //   window.location.href = "./confirmation.html?id=" + data.orderId;
-  // })
+  })
 }

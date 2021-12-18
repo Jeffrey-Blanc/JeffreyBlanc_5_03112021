@@ -159,14 +159,14 @@ function testRegex(regex, value, errorHTML, message) {
     return false;
   }
 }
-  
+
 // Bouton commande : Vérification des formatages formulaires avant l'envoie.
 document.getElementById('order').addEventListener('click', (e) => {
   e.preventDefault();
 
   let regexSimple = new RegExp('^[a-zA-Z\-\' ]+$');
   let regexAddress = new RegExp('^[0-9a-zA-Z\-\' ]+$');
-  let regexEmail = new RegExp ('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+  let regexEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 
   let elementsHTML = [
     {
@@ -193,4 +193,11 @@ document.getElementById('order').addEventListener('click', (e) => {
 
     fields.isValid = isValid;
   });
+
+  let verificationFinal = elementsHTML.findIndex((elementsHTML) => elementsHTML.isValid === false);
+  if (verificationFinal === -1) {
+    console.log('tout est ok');
+  } else {
+    console.log('il y a erreur');
+  }
 });

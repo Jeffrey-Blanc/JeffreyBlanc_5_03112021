@@ -241,25 +241,7 @@ document.getElementById('order').addEventListener('click', (e) => {
       products: products
     }
     
-    // await fetch("http://localhost:3000/api/order", {
-    //   mode: 'no-cors',
-    //   method: "POST",
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {
-    //   console.log(data);
-    // })
-    // .catch((e) => {
-    //   console.log(e);
-    // });
     sendOrder(data);
-    console.log(data);
-    console.log('tout est ok');
   } else {
     console.log('il y a erreur');
   }
@@ -267,17 +249,23 @@ document.getElementById('order').addEventListener('click', (e) => {
 
 async function sendOrder(data){
   let reponse = await fetch("http://localhost:3000/api/products/order", {
-    mode: 'no-cors',
     method: "POST",
     headers: {
       'Accept': 'application/json',
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
-  .then(function (reponse){
-    if(reponse.ok){
-      console.log('GG?');
-    }
-  })
+  if(reponse.ok){
+    confirmer(reponse);
+  }
+
+  function confirmer(data){
+    window.location.href = "./confirmation.html?id=" + data.orderId;
+  }
+  // .then((reponse) => reponse.json())
+  // .then(function (data){
+  //   console.log(data);
+  //   window.location.href = "./confirmation.html?id=" + data.orderId;
+  // })
 }

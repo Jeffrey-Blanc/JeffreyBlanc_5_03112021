@@ -160,6 +160,36 @@ function testRegex(regex, value, errorHTML, message) {
   }
 }
 
+function saveContactValueElement(id, elementValue) {
+  switch (id) {
+    case 'firstName':
+      contact.firstName = elementValue;
+      break;
+    case 'lastName':
+      contact.lastName = elementValue;
+      break;
+    case 'address':
+      contact.address = elementValue;
+      break;
+    case 'city':
+      contact.city = elementValue;
+      break;
+    case 'email':
+      contact.email = elementValue;
+      break;
+    default:
+      console.log('probleme');
+  }
+}
+
+let contact = {
+  firstName: '',
+  lastName: '',
+  address: '',
+  city: '',
+  email: '',
+}
+
 // Bouton commande : Vérification des formatages formulaires avant l'envoie.
 document.getElementById('order').addEventListener('click', (e) => {
   e.preventDefault();
@@ -192,6 +222,7 @@ document.getElementById('order').addEventListener('click', (e) => {
     let isValid = testRegex(fields.regex, elementHTML.value, errorHTML, fields.messagError);
 
     fields.isValid = isValid;
+    saveContactValueElement(fields.id, elementHTML.value);
   });
 
   let verificationFinal = elementsHTML.findIndex((elementsHTML) => elementsHTML.isValid === false);

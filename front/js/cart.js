@@ -121,6 +121,9 @@ function deleteArticle(idProduct, color) {
   let i = cart[index].product.findIndex((element) => color === element.color);
 
   cart[index].product.splice(i, 1);
+  if(cart[index].product.length < 1){
+    cart.splice(index, 1);
+  }
 }
 
 function modifyQuantity(idProduct, color, quantity) {

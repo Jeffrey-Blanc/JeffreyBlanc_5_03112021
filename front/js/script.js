@@ -68,27 +68,27 @@ getProduct();
 storageAlreadyExist();
 
 let colorSelect = document.getElementById('colors');
-colorSelect.addEventListener('change', ()=>{
+colorSelect.addEventListener('change', () => {
   colorChoice = colorSelect.value;
 });
 
 let quantitySelect = document.getElementById('quantity');
-quantitySelect.addEventListener('change', ()=>{
+quantitySelect.addEventListener('change', () => {
   quantityChoice = quantitySelect.value;
   quantityChoice = parseInt(quantityChoice);
 });
 
 let addToCart = document.getElementById('addToCart').addEventListener('click', () => {
   // Verifie le formatage de l'ajout au panier
-  if(quantityChoice < 1 || quantityChoice > 100){
+  if (quantityChoice < 1 || quantityChoice > 100) {
     return;
-  } 
-  if (colorChoice == ''){
+  }
+  if (colorChoice == '') {
     return;
-  }else{
+  } else {
     // Verifie si l'ID n'existe pas dans un tableau cart, l'ajouter dans le tableau concernée et enregistre sur localStorage.
     let index = cart.findIndex((productOrder) => urlId === productOrder.id);
-    if(index === -1){
+    if (index === -1) {
       productOrder.product.push({
         color: colorChoice,
         quantity: quantityChoice
@@ -96,18 +96,18 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       cart.push(productOrder);
       saveToStorage();
       reset();
-    }else{
+    } else {
       let color = colorChoice;
       let i = cart[index].product.findIndex((e) => e.color === color);
       // Verifie si la couleur est n'existe pas dans un tableau, l'ajouter dans le tableau product et enregistre sur localStorage.
-      if(i === -1){
+      if (i === -1) {
         cart[index].product.push({
           color: colorChoice,
           quantity: quantityChoice
         });
         saveToStorage();
         reset();
-      }else{
+      } else {
         cart[index].product[i] = {
           ...cart[index].product[i],
           quantity: cart[index].product[i].quantity += quantityChoice

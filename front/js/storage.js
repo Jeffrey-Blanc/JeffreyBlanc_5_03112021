@@ -1,8 +1,8 @@
 /***
  * Extrait les données localStorage s'il existe.
  */
- function storageAlreadyExist(){
-  if(localStorage.getItem('panier')){
+function storageAlreadyExist() {
+  if (localStorage.getItem('panier')) {
     return extractStorages();
   }
 }
@@ -19,6 +19,6 @@ function extractStorages() {
 /***
  * Enregistre les données de l'objet cart dans localStorage.
  */
-function saveToStorage(){
+function saveToStorage() {
   localStorage.setItem('panier', JSON.stringify(cart));
 }

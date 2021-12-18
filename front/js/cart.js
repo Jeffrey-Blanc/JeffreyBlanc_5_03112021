@@ -121,7 +121,7 @@ function deleteArticle(idProduct, color) {
   let i = cart[index].product.findIndex((element) => color === element.color);
 
   cart[index].product.splice(i, 1);
-  if(cart[index].product.length < 1){
+  if (cart[index].product.length < 1) {
     cart.splice(index, 1);
   }
 }
@@ -150,7 +150,7 @@ function recalculateTotalPrice() {
 }
 
 function testRegex(regex, value, errorHTML, message) {
-  if(value === 'undefined'){
+  if (value === 'undefined') {
     errorHTML.innerText = message;
     return false;
   }
@@ -240,14 +240,14 @@ document.getElementById('order').addEventListener('click', (e) => {
       contact: contact,
       products: products
     }
-    
+
     sendOrder(data);
   } else {
     console.log('il y a erreur');
   }
 });
 
-async function sendOrder(data){
+async function sendOrder(data) {
   let reponse = await fetch("http://localhost:3000/api/products/order", {
     method: "POST",
     headers: {
@@ -256,9 +256,9 @@ async function sendOrder(data){
     },
     body: JSON.stringify(data),
   })
-  .then((reponse) => reponse.json())
-  .then(function (data){
-    console.log(data);
-    window.location.href = "./confirmation.html?id=" + data.orderId;
-  })
+    .then((reponse) => reponse.json())
+    .then(function (data) {
+      console.log(data);
+      window.location.href = "./confirmation.html?id=" + data.orderId;
+    })
 }

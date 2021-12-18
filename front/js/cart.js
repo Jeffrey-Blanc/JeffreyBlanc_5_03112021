@@ -228,10 +228,56 @@ document.getElementById('order').addEventListener('click', (e) => {
     saveContactValueElement(fields.id, elementHTML.value);
   });
 
+  let products = [];
+
   let verificationFinal = elementsHTML.findIndex((elementsHTML) => elementsHTML.isValid === false);
   if (verificationFinal === -1) {
+    cart.map((product) => {
+      products.push(product.id);
+    });
+
+    let data = {
+      contact: contact,
+      products: products
+    }
+    
+    // await fetch("http://localhost:3000/api/order", {
+    //   mode: 'no-cors',
+    //   method: "POST",
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // })
+    // .then((res) => res.json())
+    // .then((data) => {
+    //   console.log(data);
+    // })
+    // .catch((e) => {
+    //   console.log(e);
+    // });
+    sendOrder(data);
+    console.log(data);
     console.log('tout est ok');
   } else {
     console.log('il y a erreur');
   }
 });
+
+async function sendOrder(data){
+  let reponse = await fetch("http://localhost:3000/api/products/order", {
+    mode: 'no-cors',
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(function (reponse){
+    if(reponse.ok){
+      console.log('GG?');
+    }
+  })
+}

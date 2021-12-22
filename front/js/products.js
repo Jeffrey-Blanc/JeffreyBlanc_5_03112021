@@ -1,4 +1,3 @@
-
 /**
 * Récupération des produits avec la création des elements HTML
 */

@@ -67,11 +67,13 @@ function createProductDescription(product) {
 getProduct();
 storageAlreadyExist();
 
+// Récupération valeur du choix des couleurs
 let colorSelect = document.getElementById('colors');
 colorSelect.addEventListener('change', () => {
   colorChoice = colorSelect.value;
 });
 
+// Récupération valeur du choix des quantités
 let quantitySelect = document.getElementById('quantity');
 quantitySelect.addEventListener('change', () => {
   quantityChoice = quantitySelect.value;
@@ -96,10 +98,11 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       cart.push(productOrder);
       saveToStorage();
       reset();
-    } else {
+    } else { 
+      // ID existe dans le tableau, on procède donc si la couleur existe.
       let color = colorChoice;
       let i = cart[index].product.findIndex((e) => e.color === color);
-      // Verifie si la couleur est n'existe pas dans un tableau, l'ajouter dans le tableau product et enregistre sur localStorage.
+      // Verifie si la couleur n'existe pas dans un tableau, l'ajouter dans le tableau product et enregistre sur localStorage.
       if (i === -1) {
         cart[index].product.push({
           color: colorChoice,
@@ -107,7 +110,8 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
         });
         saveToStorage();
         reset();
-      } else {
+      } else { 
+        // La couleur existe dans le tableau, modifie juste sa quantité et enregistre sur localstorage.
         cart[index].product[i] = {
           ...cart[index].product[i],
           quantity: cart[index].product[i].quantity += quantityChoice
@@ -119,6 +123,9 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
   }
 });
 
+/**
+ * Réinitialise la valeur des choix de couleurs et la quantité quand l'ajout au panier est ok.
+ */
 function reset() {
   colorSelect.textContent = `--SVP, choisissez une couleur --`;
   quantitySelect.value = 0;

@@ -25,19 +25,19 @@ async function getProducts() {
 /**
 * Création de l'element HTML produit
 * @param{object}product 
-* @returns
+* @returns Elements HTML
 */
 function createProduct(product) {
   return (
     `
-  <a href="./product.html?id=${product._id}">
-  <article>
-  <img src="${product.imageUrl}" alt="${product.altTxt}">
-  <h3 class="productName">${product.name}</h3>
-  <p class="productDescription">${product.description}</p>
-  </article>
-  </a>
-  `
+    <a href="./product.html?id=${product._id}">
+      <article>
+        <img src="${product.imageUrl}" alt="${product.altTxt}">
+        <h3 class="productName">${product.name}</h3>
+        <p class="productDescription">${product.description}</p>
+      </article>
+    </a>
+    `
   )
 }
 

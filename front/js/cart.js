@@ -114,6 +114,7 @@ document.getElementById('order').addEventListener('click', (e) => {
 
     // Envoie au API
     sendOrder(data);
+    localStorage.clear();
   } else {
     console.log('il y a erreur');
   }

@@ -98,7 +98,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
       cart.push(productOrder);
       saveToStorage();
       reset();
-    } else { 
+    } else {
       // ID existe dans le tableau, on procède donc si la couleur existe.
       let color = colorChoice;
       let i = cart[index].product.findIndex((e) => e.color === color);
@@ -110,7 +110,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
         });
         saveToStorage();
         reset();
-      } else { 
+      } else {
         // La couleur existe dans le tableau, modifie juste sa quantité et enregistre sur localstorage.
         cart[index].product[i] = {
           ...cart[index].product[i],

@@ -127,6 +127,7 @@ let addToCart = document.getElementById('addToCart').addEventListener('click', (
  * Réinitialise la valeur des choix de couleurs et la quantité quand l'ajout au panier est ok.
  */
 function reset() {
-  colorSelect.textContent = `--SVP, choisissez une couleur --`;
+  // colorSelect.textContent = `--SVP, choisissez une couleur --`;
   quantitySelect.value = 0;
+  window.location.href = "./cart.html";
 }
